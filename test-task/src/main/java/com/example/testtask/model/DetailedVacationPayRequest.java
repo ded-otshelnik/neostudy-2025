@@ -8,13 +8,13 @@ import java.time.LocalDate;
 
 @Getter
 @EqualsAndHashCode(callSuper = false)
-public class DetailedVacationRequest extends VacationRequest {
+public class DetailedVacationPayRequest extends VacationPayRequest {
     @NonNull
     private final LocalDate vacationStartDay;
     @NonNull
     private final LocalDate vacationEndDay;
 
-    public DetailedVacationRequest(Double averageSalary, @NonNull LocalDate vacationStartDay, @NonNull LocalDate vacationEndDay){
+    public DetailedVacationPayRequest(Double averageSalary, @NonNull LocalDate vacationStartDay, @NonNull LocalDate vacationEndDay){
         super(RequestType.DETAILED, averageSalary);
         this.vacationStartDay = vacationStartDay;
         this.vacationEndDay = vacationEndDay;

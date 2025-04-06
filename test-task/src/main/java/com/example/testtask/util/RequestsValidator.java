@@ -1,30 +1,30 @@
 package com.example.testtask.util;
 
-import com.example.testtask.model.DetailedVacationRequest;
-import com.example.testtask.model.NonDetailedVacationRequest;
-import com.example.testtask.model.VacationRequest;
+import com.example.testtask.model.DetailedVacationPayRequest;
+import com.example.testtask.model.NonDetailedVacationPayRequest;
+import com.example.testtask.model.VacationPayRequest;
 
 import java.time.LocalDate;
 
 public class RequestsValidator {
-    public static void validateRequest(VacationRequest vacationRequest) throws IllegalArgumentException{
-        if (vacationRequest == null){
+    public static void validateRequest(VacationPayRequest vacationPayRequest) throws IllegalArgumentException{
+        if (vacationPayRequest == null){
             throw new IllegalArgumentException("Vacation request is empty");
         }
 
-        if (vacationRequest.getAverageSalary() < 0 ){
+        if (vacationPayRequest.getAverageSalary() < 0 ){
             throw new IllegalArgumentException("Average salary must be non-negative number");
         }
 
-        if (vacationRequest instanceof NonDetailedVacationRequest){
-            NonDetailedVacationRequest nonDetailedVacationRequest = (NonDetailedVacationRequest) vacationRequest;
+        if (vacationPayRequest instanceof NonDetailedVacationPayRequest){
+            NonDetailedVacationPayRequest nonDetailedVacationRequest = (NonDetailedVacationPayRequest) vacationPayRequest;
             if (nonDetailedVacationRequest.getVacationInDays() < 0){
                 throw new IllegalArgumentException("Total vacation days must be non-negative number");
             }
         }
 
-        else if (vacationRequest instanceof DetailedVacationRequest){
-            DetailedVacationRequest detailedVacationRequest = (DetailedVacationRequest) vacationRequest;
+        else if (vacationPayRequest instanceof DetailedVacationPayRequest){
+            DetailedVacationPayRequest detailedVacationRequest = (DetailedVacationPayRequest) vacationPayRequest;
 
             LocalDate startDay = detailedVacationRequest.getVacationStartDay();
             LocalDate endDay = detailedVacationRequest.getVacationEndDay();

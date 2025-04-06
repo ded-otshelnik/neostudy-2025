@@ -25,7 +25,7 @@ public class RuNewYear implements Holiday {
             return true;
         }
 
-        // also day before New Year is mostly holiday
+        // also the day before New Year is mostly holiday
         return isDayBeforeNewYear(day);
     }
 
@@ -33,13 +33,17 @@ public class RuNewYear implements Holiday {
         return day.getMonth().equals(Month.JANUARY);
     }
 
-    private boolean isInDecember(LocalDate day){
+    private boolean isInDecember(LocalDate day) {
         return day.getMonth().equals(Month.DECEMBER);
     }
 
-
-
     private boolean isDayBeforeNewYear(LocalDate day){
-        return isInDecember(day) && day.minusDays(1).equals(day);
+        if (!isInDecember(day)){
+            return false;
+        }
+
+        // day before new year always in previous year
+        LocalDate dayBeforeNewYear = LocalDate.of(day.getYear() - 1, Month.DECEMBER, 31);
+        return dayBeforeNewYear.equals(day);
     }
 }

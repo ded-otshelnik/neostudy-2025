@@ -1,9 +1,9 @@
 package com.example.testtask.service;
 
-import com.example.testtask.model.DetailedVacationRequest;
-import com.example.testtask.model.NonDetailedVacationRequest;
+import com.example.testtask.model.DetailedVacationPayRequest;
+import com.example.testtask.model.NonDetailedVacationPayRequest;
 import com.example.testtask.model.VacationPayResponse;
-import com.example.testtask.model.VacationRequest;
+import com.example.testtask.model.VacationPayRequest;
 import com.example.testtask.util.DateChecker;
 import com.example.testtask.util.RequestsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +20,18 @@ public class VacationService {
         this.dateChecker = dateChecker;
     }
 
-    public VacationPayResponse calculateVacationPay(VacationRequest vacationRequest) throws IllegalArgumentException{
-        RequestsValidator.validateRequest(vacationRequest);
+    public VacationPayResponse calculateVacationPay(VacationPayRequest vacationPayRequest) throws IllegalArgumentException{
+        RequestsValidator.validateRequest(vacationPayRequest);
         
         int totalVacationDays;
-        if (vacationRequest instanceof NonDetailedVacationRequest){
-            totalVacationDays = ((NonDetailedVacationRequest) vacationRequest).getVacationInDays();
+        if (vacationPayRequest instanceof NonDetailedVacationPayRequest){
+            totalVacationDays = ((NonDetailedVacationPayRequest) vacationPayRequest).getVacationInDays();
         }
         else {
-            DetailedVacationRequest detailedVacationRequest = (DetailedVacationRequest) vacationRequest;
+            DetailedVacationPayRequest detailedVacationRequest = (DetailedVacationPayRequest) vacationPayRequest;
             totalVacationDays = dateChecker.getDaysWithoutHolidays(detailedVacationRequest.getVacationStartDay(), detailedVacationRequest.getVacationEndDay());
         }
         
-        return new VacationPayResponse(vacationRequest.getAverageSalary() / AVERAGE_DAYS_IN_MONTH * totalVacationDays);
+        return new VacationPayResponse(vacationPayRequest.getAverageSalary() / AVERAGE_DAYS_IN_MONTH * totalVacationDays);
     }
 }

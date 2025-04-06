@@ -10,10 +10,11 @@ import lombok.NonNull;
 @AllArgsConstructor
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "requestType")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = NonDetailedVacationRequest.class, name = "NON_DETAILED"),
-        @JsonSubTypes.Type(value = DetailedVacationRequest.class, name = "DETAILED")
+        @JsonSubTypes.Type(value = NonDetailedVacationPayRequest.class, name = "NON_DETAILED"),
+        @JsonSubTypes.Type(value = DetailedVacationPayRequest.class, name = "DETAILED")
 })
-public class VacationRequest {
+public class VacationPayRequest {
+    // requestType needs for inheritance on REST API level
     @NonNull
     private RequestType requestType;
     @NonNull
