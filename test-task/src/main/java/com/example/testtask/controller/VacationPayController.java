@@ -4,9 +4,7 @@ import com.example.testtask.model.VacationPayResponse;
 import com.example.testtask.model.VacationPayRequest;
 import com.example.testtask.service.VacationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class VacationPayController {
