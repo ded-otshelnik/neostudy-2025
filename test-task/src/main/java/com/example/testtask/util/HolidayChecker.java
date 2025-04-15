@@ -8,12 +8,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Component
-public class DateChecker {
+public class HolidayChecker {
     // date checker
     private final List<Holiday> holidays;
 
     @Autowired
-    public DateChecker(List<Holiday> holidays){
+    public HolidayChecker(List<Holiday> holidays){
         this.holidays = holidays;
     }
     
@@ -22,7 +22,7 @@ public class DateChecker {
     }
 
     public int getDaysWithoutHolidays(LocalDate vacationStartDay, LocalDate endDay){
-        // DateChecker look over all days between vacationStartDay and endDay
+        // HolidayChecker looks over all days between vacationStartDay and endDay
         LocalDate checkedDay = vacationStartDay;
         int totalDaysWithoutHolidays = 0;
 
