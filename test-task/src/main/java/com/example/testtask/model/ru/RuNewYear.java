@@ -42,7 +42,7 @@ public class RuNewYear implements Holiday {
             return false;
         }
 
-        // day before new year always in previous year
+        // day before new year always in previous year and mostly it is a holiday
         LocalDate dayBeforeNewYear = LocalDate.of(day.getYear() - 1, Month.DECEMBER, 31);
         return dayBeforeNewYear.equals(day);
     }

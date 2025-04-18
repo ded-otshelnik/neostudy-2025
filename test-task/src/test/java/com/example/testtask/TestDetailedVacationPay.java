@@ -1,7 +1,7 @@
 package com.example.testtask;
 
 import com.example.testtask.model.DetailedVacationPayRequest;
-import com.example.testtask.service.VacationService;
+import com.example.testtask.service.VacationPayService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,11 +16,11 @@ import java.util.stream.Stream;
 
 @SpringBootTest
 public class TestDetailedVacationPay {
-    private final VacationService vacationService;
+    private final VacationPayService vacationPayService;
 
     @Autowired
-    public TestDetailedVacationPay(VacationService vacationService) {
-        this.vacationService = vacationService;
+    public TestDetailedVacationPay(VacationPayService vacationPayService) {
+        this.vacationPayService = vacationPayService;
     }
 
     // additional function that calculates number of days within interval
@@ -38,10 +38,10 @@ public class TestDetailedVacationPay {
         DetailedVacationPayRequest detailedVacationRequest = new DetailedVacationPayRequest(293000.0,
                 startDate, endDate);
 
-        double expected = (daysBetweenInclusive(endDate, startDate) - holidayDaysAmount) * 293000.0 / VacationService.AVERAGE_DAYS_IN_MONTH;
+        double expected = (daysBetweenInclusive(endDate, startDate) - holidayDaysAmount) * 293000.0 / VacationPayService.AVERAGE_DAYS_IN_MONTH;
 
         // Act
-        double actual = vacationService.calculateVacationPay(detailedVacationRequest).getVacationPay();
+        double actual = vacationPayService.calculateVacationPay(detailedVacationRequest).getVacationPay();
 
         // Assert
         Assertions.assertEquals(expected, actual, String.format("expected: %f, got: %f", expected, actual));
@@ -68,7 +68,7 @@ public class TestDetailedVacationPay {
     @MethodSource("provideArgumentsForCalculate")
     public void testCalculationFallsOnNegativeNumbers(DetailedVacationPayRequest detailedVacationRequest, String expectedMessage){
         Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () ->{
-            vacationService.calculateVacationPay(detailedVacationRequest);
+            vacationPayService.calculateVacationPay(detailedVacationRequest);
         });
         String actualMessage = exception.getMessage();
 

@@ -1,7 +1,7 @@
 package com.example.testtask;
 
 import com.example.testtask.model.NonDetailedVacationPayRequest;
-import com.example.testtask.service.VacationService;
+import com.example.testtask.service.VacationPayService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -15,11 +15,11 @@ import java.util.stream.Stream;
 
 @SpringBootTest
 class TestNonDetailedVacationPay {
-    private final VacationService vacationService;
+    private final VacationPayService vacationPayService;
 
     @Autowired
-    public TestNonDetailedVacationPay(VacationService vacationService){
-        this.vacationService = vacationService;
+    public TestNonDetailedVacationPay(VacationPayService vacationPayService){
+        this.vacationPayService = vacationPayService;
     }
 
     @Test
@@ -30,7 +30,7 @@ class TestNonDetailedVacationPay {
         double expected = 280000;
 
         // Act
-        double actual = vacationService.calculateVacationPay(nonDetailedVacationRequest).getVacationPay();
+        double actual = vacationPayService.calculateVacationPay(nonDetailedVacationRequest).getVacationPay();
 
         // Assert
         Assertions.assertEquals(expected, actual, String.format("Expected %f, got %f", expected, actual));
@@ -49,7 +49,7 @@ class TestNonDetailedVacationPay {
     @MethodSource("provideArgumentsForCalculate")
     public void testCalculationFallsOnNegativeNumbers(NonDetailedVacationPayRequest nonDetailedVacationRequest, String expectedMessage){
         Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () ->{
-            vacationService.calculateVacationPay(nonDetailedVacationRequest);
+            vacationPayService.calculateVacationPay(nonDetailedVacationRequest);
         });
         String actualMessage = exception.getMessage();
 

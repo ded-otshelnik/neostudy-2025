@@ -9,7 +9,6 @@ import java.util.List;
 
 @Component
 public class DaysWithoutHolidaysCounter {
-    // date checker
     private final List<Holiday> holidays;
 
     @Autowired
@@ -22,7 +21,8 @@ public class DaysWithoutHolidaysCounter {
     }
 
     public int getDaysWithoutHolidays(LocalDate vacationStartDay, LocalDate endDay){
-        // DaysWithoutHolidaysCounter looks over all days between vacationStartDay and endDay
+        // DaysWithoutHolidaysCounter looks over all days
+        // between startDay and endDay including that days
         LocalDate checkedDay = vacationStartDay;
         int totalDaysWithoutHolidays = 0;
 
