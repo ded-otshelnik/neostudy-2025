@@ -1,5 +1,6 @@
 package com.example.testtask;
 
+import com.example.testtask.exception.InvalidRequestException;
 import com.example.testtask.model.DetailedVacationPayRequest;
 import com.example.testtask.service.VacationPayService;
 import org.junit.jupiter.api.Assertions;
@@ -52,22 +53,22 @@ public class TestDetailedVacationPay {
                 Arguments.of(new DetailedVacationPayRequest(10000.0,
                             LocalDate.of(2025, 2, 1), LocalDate.of(2024, 2, 1)
                         ),
-                        "Start date must be always before end date"),
+                        "The vacation start day must be always before the end day"),
                 Arguments.of(new DetailedVacationPayRequest( -0.00001,
                             LocalDate.of(2025, 2, 1), LocalDate.of(2024, 2, 1)
                         ),
-                        "AverageSalary must be non-negative number"),
+                        "Average salary must be non-negative number"),
                 Arguments.of(new DetailedVacationPayRequest( 10000.0,
                                 LocalDate.of(2025, 2, 1), LocalDate.of(2024, 2, 1)
                         ),
-                        "Start date must be always before end date")
+                        "The vacation start day must be always before the end day")
         );
     }
 
     @ParameterizedTest
     @MethodSource("provideArgumentsForCalculate")
     public void testCalculationFallsOnNegativeNumbers(DetailedVacationPayRequest detailedVacationRequest, String expectedMessage){
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () ->{
+        Exception exception = Assertions.assertThrows(InvalidRequestException.class, () ->{
             vacationPayService.calculateVacationPay(detailedVacationRequest);
         });
         String actualMessage = exception.getMessage();

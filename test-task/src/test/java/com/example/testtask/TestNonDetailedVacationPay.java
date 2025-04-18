@@ -1,5 +1,6 @@
 package com.example.testtask;
 
+import com.example.testtask.exception.InvalidRequestException;
 import com.example.testtask.model.NonDetailedVacationPayRequest;
 import com.example.testtask.service.VacationPayService;
 import org.junit.jupiter.api.Assertions;
@@ -38,17 +39,17 @@ class TestNonDetailedVacationPay {
 
     private static Stream<Arguments> provideArgumentsForCalculate() {
         return Stream.of(
-                Arguments.of(new NonDetailedVacationPayRequest( -10000.0, 28), "AverageSalary must be non-negative number"),
-                Arguments.of(new NonDetailedVacationPayRequest( -0.00001, 28), "AverageSalary must be non-negative number"),
-                Arguments.of(new NonDetailedVacationPayRequest( -10000.0, -28), "AverageSalary must be non-negative number"),
-                Arguments.of(new NonDetailedVacationPayRequest( 10000.0, -28), "VacationInDays must be non-negative number")
+                Arguments.of(new NonDetailedVacationPayRequest( -10000.0, 28), "Average salary must be non-negative number"),
+                Arguments.of(new NonDetailedVacationPayRequest( -0.00001, 28), "Average salary must be non-negative number"),
+                Arguments.of(new NonDetailedVacationPayRequest( -10000.0, -28), "Average salary must be non-negative number"),
+                Arguments.of(new NonDetailedVacationPayRequest( 10000.0, -28), "Total vacation days must be non-negative number")
         );
     }
 
     @ParameterizedTest
     @MethodSource("provideArgumentsForCalculate")
     public void testCalculationFallsOnNegativeNumbers(NonDetailedVacationPayRequest nonDetailedVacationRequest, String expectedMessage){
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () ->{
+        Exception exception = Assertions.assertThrows(InvalidRequestException.class, () ->{
             vacationPayService.calculateVacationPay(nonDetailedVacationRequest);
         });
         String actualMessage = exception.getMessage();
